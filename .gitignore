@@ -21,3 +21,4 @@ venv.bak/
 /lib/mylib/secrets.py
 pyright*.json
 *.kate-swp
+*.db
