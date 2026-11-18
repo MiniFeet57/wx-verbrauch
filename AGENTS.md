@@ -6,12 +6,12 @@ Einzeldatei-Desktop-App zur Erfassung von Zählerständen. Sie speichert Messwer
 SQLite, berechnet Verbrauch und Kosten und zeigt Tabelle plus Liniendiagramm.
 Die UI ist auf Deutsch und basiert auf wxPython.
 
-Hauptquelldatei: `verbrauch_wx.py` (die Datei heißt nicht `wx-verbrauch.py`).
+Hauptquelldatei:  `wx-verbrauch.py`
 
 ## Start und Voraussetzungen
 
 ```sh
-python3 verbrauch_wx.py
+python3 wx-verbrauch.py
 ```
 
 - Python 3 mit `from __future__ import annotations` (Typangaben als Strings)
