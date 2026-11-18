@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codz]
+*$py.class
+
+# Environments
+.env
+.envrc
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Ruff stuff:
+.ruff_cache/
+
+# by Didi 23.10.26
+/typings
+/lib/mylib/secrets.py
+pyright*.json
+*.kate-swp
