@@ -24,7 +24,7 @@ python3 wx-verbrauch.py
 
 | Datei | Rolle |
 | --- | --- |
-| `verbrauch_wx.py` | gesamte Anwendung: Konstanten, Helfer, Diagramm, Import-Dialog, Hauptframe |
+| `wx-verbrauch.py` | gesamte Anwendung: Konstanten, Helfer, Diagramm, Import-Dialog, Hauptframe |
 | `verbrauch.db` | SQLite-Datenbank (`readings`, `settings`), zur Laufzeit erzeugt |
 | `verbrauch_export.csv` | Beispiel-Export (Semikolon-getrennt, UTF-8 mit BOM) |
 

@@ -15,9 +15,10 @@ import io
 import re
 import shutil
 import sqlite3
-import wx
 from datetime import date, datetime
 from pathlib import Path
+
+import wx
 
 DB_PATH = Path(__file__).with_name("verbrauch.db")
 OLD_DB_PATH = Path(__file__).with_name("stromverbrauch.db")

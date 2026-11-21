@@ -13,7 +13,6 @@ from __future__ import annotations
 import csv
 import io
 import re
-import shutil
 import sqlite3
 import sys
 from datetime import date, datetime
@@ -44,7 +43,6 @@ from PySide6.QtWidgets import (
 )
 
 DB_PATH = Path(__file__).with_name("verbrauch.db")
-OLD_DB_PATH = Path(__file__).with_name("stromverbrauch.db")
 
 DATA_MEDIUM_LABELS = ("Strom", "Wasser", "Gas")
 MEDIUM_LABELS = DATA_MEDIUM_LABELS + ("Alle",)
@@ -172,9 +170,10 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
 """
 
 # ----------------------------------------------------------------- Helfer
+
+
 def connect() -> sqlite3.Connection:
-    if not DB_PATH.exists() and OLD_DB_PATH.exists():
-        shutil.copy2(OLD_DB_PATH, DB_PATH)
+
     con = sqlite3.connect(DB_PATH)
 
     con.execute(
