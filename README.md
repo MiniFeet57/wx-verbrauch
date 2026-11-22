@@ -4,18 +4,22 @@
 
 Einzeldatei-Desktop-App zur Erfassung von Zählerständen. Sie speichert Messwerte in
 SQLite, berechnet Verbrauch und Kosten und zeigt Tabelle plus Liniendiagramm.
-Die UI ist auf Deutsch und basiert auf wxPython.
+Die UI ist auf Deutsch. Es gibt zwei Varianten: `wx-verbrauch.py` (wxPython)
+und `verbrauch_pyside6.py` (PySide6). Beide nutzen dieselbe Datenbank und Logik.
 
-Hauptquelldatei:  `wx-verbrauch.py`
+Hauptquelldateien: `wx-verbrauch.py`, `verbrauch_pyside6.py`
 
 ## Start und Voraussetzungen
 
 ```sh
 python3 wx-verbrauch.py
+# oder
+python3 verbrauch_pyside6.py
 ```
 
 - Python 3 mit `from __future__ import annotations` (Typangaben als Strings)
-- `wxPython` muss installiert sein; SQLite ist Teil der Standardbibliothek
+- Für die wx-Variante muss `wxPython`, für die PySide6-Variante `PySide6` installiert sein;
+  SQLite ist Teil der Standardbibliothek
 - Es gibt keine `requirements.txt`, keine Tests und keine Build-Konfiguration
 - Zur Laufzeit wird neben dem Skript `verbrauch.db` angelegt; diese Datei ist
   Nutzerdatenbestand und sollte nicht gelöscht oder überschrieben werden
@@ -24,13 +28,22 @@ python3 wx-verbrauch.py
 
 | Datei | Rolle |
 | --- | --- |
-| `verbrauch_wx.py` | gesamte Anwendung: Konstanten, Helfer, Diagramm, Import-Dialog, Hauptframe |
+| `wx-verbrauch.py` | gesamte Anwendung: Konstanten, Helfer, Diagramm, Import-Dialog, Hauptframe |
+| `verbrauch_pyside6.py` | PySide6-Variante der Anwendung (gleiche DB und Logik, eigenes Dark-Theme) |
 | `verbrauch.db` | SQLite-Datenbank (`readings`, `settings`), zur Laufzeit erzeugt |
 | `verbrauch_export.csv` | Beispiel-Export (Semikolon-getrennt, UTF-8 mit BOM) |
 
+## PySide6-Variante (`verbrauch_pyside6.py`)
+
+Die PySide6-Variante verwendet dieselben Tabellen, Helfer und Preise wie die wx-Version,
+kopiert aber keine alte `stromverbrauch.db` und bringt ein eigenes dunkles `STYLE`-Stylesheet mit.
+Die Auswahlfelder (`QComboBox`) zeigen bewusst den Standard-Pfeil von Qt: Es gibt keine
+Regeln `QComboBox::drop-down` oder `QComboBox::down-arrow`, damit der Pfeil nicht wie
+ein angehängter Button wirkt.
+
 ## Architektur
 
-Alles liegt in einer Moduldatei. Reihenfolge der Abschnitte:
+Pro Variante liegt alles in einer Moduldatei. Reihenfolge der Abschnitte:
 
 1. Konstanten und Mappings
 2. Helfer (`connect`, `parse_float`, `parse_date`, `read_csv_rows`, `format_number`, `style_list`)
@@ -135,5 +148,7 @@ settings(key TEXT PRIMARY KEY, value TEXT NOT NULL)
 - Änderungen an der Tabelle müssen `style_list()` beibehalten, sonst verschwindet
   weiße Schrift im Dark Theme
 - Nach Datenänderungen immer `commit()` und `refresh()` aufrufen
+- In der PySide6-Variante keine `QComboBox::drop-down`/`::down-arrow`-Regeln ergänzen;
+  die ComboBoxen sollen den Standard-Pfeil von Qt behalten
 - Es gibt keine automatisierten Tests; Smoke-Test: App starten, Messwert speichern,
   Medium wechseln, Import/Export prüfen, DB-Inhalt kontrollieren
